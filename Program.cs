@@ -36,71 +36,80 @@ public class Program
            }
            
             while (true)
-            {
-                valorAtual = await ativo.ValorAtual(args[0]);
-                Console.WriteLine(valorAtual);
-                contador ++;
-                if(valorAtual > valMax)
-                {   
-                    if(contador >= delay)
-                    {   
-                        if(spam <3)
-                        {
-                            Console.WriteLine("valor acima , venda");
-                            await email.Email(emailDaEmpresa, senhaDoEmail, emailCliente, "Alerta de Ação"," Venda a Ação!! ");
-                            contador = 0;
-                            valorConstante = valorAtual;
-                            spam++;
-                        }else if (spam >= 3 && valorAtual != valorConstante)
-                        {
-                            Console.WriteLine("valor acima , venda");
-                            await email.Email(emailDaEmpresa, senhaDoEmail, emailCliente, "Alerta de Ação"," Venda a Ação!! ");
-                            valorConstante = valorAtual;
-                            contador = 0;
-                            spam = 1;
-                        }
-                        else
-                        {
-                            Console.WriteLine("Spam de email atingido, não será enviado mais emails até que o valor mude.");
-                            contador = 0;
-                        }
-                        
-                    }
-            
-                }else if(valorAtual < valMin)
-                {   
-                    if(contador >= delay)
-                    {
-                        if(spam <3)
-                        {
-                            Console.WriteLine("valor abaixo , compra");
-                            await email.Email(emailDaEmpresa, senhaDoEmail, emailCliente, "Alerta de Ação"," Compre a Ação!! ");
-                            contador = 0;
-                            valorConstante = valorAtual;
-                            spam++;
-                        }else if (spam >= 3 && valorAtual != valorConstante)
-                        {
-                            Console.WriteLine("valor abaixo , compra");
-                            await email.Email(emailDaEmpresa, senhaDoEmail, emailCliente, "Alerta de Ação"," Compre a Ação!! ");
-                            valorConstante = valorAtual;
-                            contador = 0;
-                            spam = 1;
-                        }
-                        else
-                        {
-                            Console.WriteLine("Spam de email atingido, não será enviado mais emails até que o valor mude.");
-                            contador = 0;
-                        }
-                    }
-
-                }
-                else
+            {   
+                try
                 {
-                    spam = 0;
-                    Console.WriteLine("Valor dentro da faixa, sem ação necessária.");
+                    valorAtual = await ativo.ValorAtual(args[0]);
+                    Console.WriteLine(valorAtual);
+                    contador ++;
+                    if(valorAtual > valMax)
+                    {   
+                        if(contador >= delay)
+                        {   
+                            if(spam <3)
+                            {
+                                Console.WriteLine("valor acima , venda");
+                                await email.Email(emailDaEmpresa, senhaDoEmail, emailCliente, "Alerta de Ação"," Venda a Ação!! ");
+                                contador = 0;
+                                valorConstante = valorAtual;
+                                spam++;
+                            }else if (spam >= 3 && valorAtual >= valorConstante * 1.01m)
+                            {
+                                Console.WriteLine("valor acima , venda");
+                                await email.Email(emailDaEmpresa, senhaDoEmail, emailCliente, "Alerta de Ação"," Venda a Ação!! ");
+                                valorConstante = valorAtual;
+                                contador = 0;
+                                spam = 1;
+                            }
+                            else
+                            {
+                                Console.WriteLine("Spam de email atingido, não será enviado mais emails até que o valor mude.");
+                                contador = delay;
+                                
+                            }
+                        
+                        }
+                    
+            
+                    }else if(valorAtual < valMin)
+                    {   
+                        if(contador >= delay)
+                        {
+                            if(spam <3)
+                            {
+                                Console.WriteLine("valor abaixo , compra");
+                                await email.Email(emailDaEmpresa, senhaDoEmail, emailCliente, "Alerta de Ação"," Compre a Ação!! ");
+                                contador = 0;
+                                valorConstante = valorAtual;
+                                spam++;
+                            }else if (spam >= 3 && valorAtual <= valorConstante * 0.99m)
+                            {
+                                Console.WriteLine("valor abaixo , compra");
+                                await email.Email(emailDaEmpresa, senhaDoEmail, emailCliente, "Alerta de Ação"," Compre a Ação!! ");
+                                valorConstante = valorAtual;
+                                contador = 0;
+                                spam = 1;
+                            }
+                            else
+                            {
+                            Console.WriteLine("Spam de email atingido, não será enviado mais emails até que o valor mude.");
+                            contador = delay;
+                            }
+                        }
+
+                    }
+                    else
+                    {
+                        spam = 0;
+                        Console.WriteLine("Valor dentro da faixa, sem ação necessária.");
+                        contador = delay;
+                    }
+                
+                }catch (Exception ex)
+                {
+                    Console.WriteLine($"Erro : {ex.Message}, Tente novamente !");
                 }
                 await Task.Delay(timer);
-
             }
             
             
