@@ -93,7 +93,7 @@ bin/Release/net8.0/win-x64/publish/
 Navegue até a pasta onde o executável foi gerado (./publish/) e execute:
 
 ```powershell
-  stock-quote-alert.exe PETR4 22.67 22.59
+  stock-quote-alert.exe PETR4 22,67 22,59
 ```
 
 Onde:
