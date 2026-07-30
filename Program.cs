@@ -40,7 +40,7 @@ public class Program
                 try
                 {
                     valorAtual = await ativo.ValorAtual(args[0]);
-                    Console.WriteLine(valorAtual);
+                    Console.WriteLine("Valor Atual : " + valorAtual);
                     contador ++;
                     if(valorAtual > valMax)
                     {   
@@ -48,15 +48,15 @@ public class Program
                         {   
                             if(spam <3)
                             {
-                                Console.WriteLine("valor acima , venda");
-                                await email.Email(emailDaEmpresa, senhaDoEmail, emailCliente, "Alerta de Ação"," Venda a Ação!! ");
+                                Console.WriteLine("valor acima ,Alerta de venda enviado !! Valor no Alerta :" + valorAtual);
+                                await email.Email(emailDaEmpresa, senhaDoEmail, emailCliente, "Alerta de Ação"," Venda a Ação!! Valor Atual : " + valorAtual);
                                 contador = 0;
                                 valorConstante = valorAtual;
                                 spam++;
                             }else if (spam >= 3 && valorAtual >= valorConstante * 1.01m)
                             {
-                                Console.WriteLine("valor acima , venda");
-                                await email.Email(emailDaEmpresa, senhaDoEmail, emailCliente, "Alerta de Ação"," Venda a Ação!! ");
+                                Console.WriteLine("valor acima ,Alerta de venda enviado !! Valor no Alerta :" + valorAtual);
+                                await email.Email(emailDaEmpresa, senhaDoEmail, emailCliente, "Alerta de Ação"," Venda a Ação!! Valor Atual : " + valorAtual);
                                 valorConstante = valorAtual;
                                 contador = 0;
                                 spam = 1;
@@ -77,15 +77,15 @@ public class Program
                         {
                             if(spam <3)
                             {
-                                Console.WriteLine("valor abaixo , compra");
-                                await email.Email(emailDaEmpresa, senhaDoEmail, emailCliente, "Alerta de Ação"," Compre a Ação!! ");
+                                Console.WriteLine("valor abaixo ,Alerta de compra enviado !! Valor no Alerta :" + valorAtual);
+                                await email.Email(emailDaEmpresa, senhaDoEmail, emailCliente, "Alerta de Ação"," Compre a Ação!! Valor Atual : " + valorAtual);
                                 contador = 0;
                                 valorConstante = valorAtual;
                                 spam++;
                             }else if (spam >= 3 && valorAtual <= valorConstante * 0.99m)
                             {
-                                Console.WriteLine("valor abaixo , compra");
-                                await email.Email(emailDaEmpresa, senhaDoEmail, emailCliente, "Alerta de Ação"," Compre a Ação!! ");
+                                Console.WriteLine("valor abaixo ,Alerta de compra enviado !! Valor no Alerta :" + valorAtual);
+                                await email.Email(emailDaEmpresa, senhaDoEmail, emailCliente, "Alerta de Ação"," Compre a Ação!! Valor Atual : " + valorAtual);
                                 valorConstante = valorAtual;
                                 contador = 0;
                                 spam = 1;
