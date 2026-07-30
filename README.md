@@ -1,4 +1,4 @@
-# 📈 Stock Quote Alert
+# Stock Quote Alert
 
 Projeto de alertas de compra e venda de Ativos em C#
 
