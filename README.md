@@ -99,8 +99,10 @@ Navegue até a pasta onde o executável foi gerado (./publish/) e execute:
 Onde:
 
 * `PETR4` → código do ativo.
-* `22.67` → preço de venda.
-* `22.59` → preço de compra.
+* `22,67` → preço de venda.
+* `22,59` → preço de compra.
+
+(Atenção para o uso da virgula !!)
 
 ---
 
